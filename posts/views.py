@@ -16,6 +16,7 @@ class PostIndex(ListView):     # Listview é uma class pronta do django
 
     def get_queryset(self):  # altera o modo de visualização dos posts
         qs = super().get_queryset()
+        qs = qs.select_related('categoria_post')
         qs = qs.order_by('-id').filter(publicado_post=True)     # Só vai mostrar posts com o check em publicar
         qs = qs.annotate(
             numero_comentarios=Count(
